@@ -1,0 +1,28 @@
+<div class="jumbotron">
+  <h2>Welcome to {{ nameEnv }} Environment</h2>
+  <h4>Any user can register here</h4>
+  <form>
+    <div class="form-group">
+      <label for="name">Username :</label>
+      <input type="text" id="name" class="form-control" #userName />
+    </div>
+    <div class="form-group">
+      <label for="email">Email :</label>
+      <input type="text" id="email" class="form-control" />
+    </div>
+    <div class="formgroup">
+      <label for="role">Role :</label>
+      <input type="text" id="role" class="form-control" />
+    </div>
+    <hr />
+    <button class="btn btn-default" (click)="onClickButton()">Register</button>
+  </form>
+  <hr />
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-3" *ngFor="let user of users">
+        <a href="#" class="thumbnail">{{ user }}</a>
+      </div>
+    </div>
+  </div>
+</div>

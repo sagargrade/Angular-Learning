@@ -1,0 +1,16 @@
+<header class="container">
+  <app-header (pageSelection)="onSelectedPage($event)"></app-header>
+</header>
+<article class="container">
+  <h1 class="lead text-center" *ngIf="envName === 'Welcome'">
+    Welcome to Angular Learning. Let us learn Angular Framework
+  </h1>
+  <app-test
+    *ngIf="envName === 'Test'"
+    [nameEnv]="envName"
+    (myAnswer)="onAnsReceived($event)"
+  >
+  </app-test>
+  <app-syst *ngIf="envName === 'Syst'"></app-syst>
+  <app-prod *ngIf="envName === 'Prod'"></app-prod>
+</article>
