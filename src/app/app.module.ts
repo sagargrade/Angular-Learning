@@ -7,6 +7,7 @@ import { TestComponent } from './test/test.component';
 import { SystComponent } from './syst/syst.component';
 import { ProdComponent } from './prod/prod.component';
 import { HeaderComponent } from './header/header.component';
+import { BasicHighlightDirective } from './basic-highlight/basic-highlight.directive';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { HeaderComponent } from './header/header.component';
     SystComponent,
     ProdComponent,
     HeaderComponent,
+    BasicHighlightDirective
   ],
   imports: [BrowserModule, FormsModule],
   providers: [],

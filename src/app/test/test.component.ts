@@ -24,6 +24,8 @@ export class TestComponent implements OnInit, OnChanges, OnDestroy{
 
   users = ['Ram', 'Ramesh', 'Suresh', 'Raju', 'Kishore', 'Rahul', 'Narendra'];
 
+  value = 15;
+
   constructor(private myElement: ElementRef) {}
 
   ngOnInit(): void {}
