@@ -8,6 +8,9 @@ import { SystComponent } from './syst/syst.component';
 import { ProdComponent } from './prod/prod.component';
 import { HeaderComponent } from './header/header.component';
 import { BasicHighlightDirective } from './basic-highlight/basic-highlight.directive';
+import { UserdataService } from './shared/userdata.service';
+import { LoggingService } from './shared/logging.service';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -16,10 +19,11 @@ import { BasicHighlightDirective } from './basic-highlight/basic-highlight.direc
     SystComponent,
     ProdComponent,
     HeaderComponent,
-    BasicHighlightDirective
+    BasicHighlightDirective,
+    HomeComponent
   ],
   imports: [BrowserModule, FormsModule],
-  providers: [],
+  providers: [UserdataService,LoggingService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserdataService } from './shared/userdata.service';
 
 @Component({
   selector: 'app-root',
@@ -6,14 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  envName:string = '';
+  envName:string = 'Welcome';
 
   constructor(){}
 
-  ngOnInit(){
-    this.envName = '';
-    console.log('I am ngOnit');
-  }
+  ngOnInit(){ }
 
   onAnsReceived(event:string){
     console.log(event);

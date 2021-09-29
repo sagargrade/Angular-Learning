@@ -1,45 +1,44 @@
 import {
   Component,
-  ContentChild,
   ElementRef,
   EventEmitter,
   Input,
-  OnChanges,
-  OnDestroy,
   OnInit,
   Output,
-  SimpleChange,
   ViewChild,
 } from '@angular/core';
+import { User } from '../shared/user.model';
+import { UserdataService } from '../shared/userdata.service';
 
 @Component({
   selector: 'app-test',
   templateUrl: './test.component.html',
   styleUrls: ['./test.component.css'],
 })
-export class TestComponent implements OnInit, OnChanges, OnDestroy{
+export class TestComponent implements OnInit {
   @Input() nameEnv: string = '';
   @Output() myAnswer = new EventEmitter<string>();
   @ViewChild('userName') userNameDef: any;
 
-  users = ['Ram', 'Ramesh', 'Suresh', 'Raju', 'Kishore', 'Rahul', 'Narendra'];
+  username: string = '';
+  useremail: string = '';
+  userrole: string = '';
 
-  value = 15;
+  users: User[] = [];
 
-  constructor(private myElement: ElementRef) {}
+  constructor(private userDataService: UserdataService) {}
 
-  ngOnInit(): void {}
-
-  ngOnChanges(){
-    console.log('I am ngOnChanges')
-  }
-
-  ngOnDestroy(){
-    console.log('I am ngOnDestroy');
+  ngOnInit(): void {
+    this.users = this.userDataService.getUserDetails();
+    this.userDataService.userDetailChange.subscribe(
+      (userlist: User[]) => {
+        this.users = userlist;
+      }
+    );
   }
 
   onClickButton() {
-    // this.myAnswer.emit('I am test component');
-    // console.log(this.userNameDef);
+    const newUser = new User(this.username, this.useremail, this.userrole);
+    this.userDataService.addUser(newUser);
   }
 }

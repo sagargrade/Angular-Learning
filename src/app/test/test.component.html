@@ -4,15 +4,18 @@
   <form>
     <div class="form-group">
       <label for="name">Username :</label>
-      <input type="text" id="name" class="form-control" #userName />
+      <input type="text" id="name" class="form-control" 
+        [(ngModel)] = "username" name="username"/>
     </div>
     <div class="form-group">
       <label for="email">Email :</label>
-      <input type="text" id="email" class="form-control" />
+      <input type="text" id="email" class="form-control"
+       [(ngModel)] = "useremail" name="useremail"/>
     </div>
     <div class="formgroup">
       <label for="role">Role :</label>
-      <input type="text" id="role" class="form-control" />
+      <input type="text" id="role" class="form-control" 
+       [(ngModel)] = "userrole" name="userrole"/>
     </div>
     <hr />
     <button class="btn btn-default" (click)="onClickButton()">Register</button>
@@ -21,14 +24,8 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-3" *ngFor="let user of users">
-        <a href="#" class="thumbnail">{{ user }}</a>
+        <a href="#" class="thumbnail ">{{ user.userName }}</a>
       </div>
     </div>
   </div>
 </div>
-
-<!-- <div [ngSwitch] = "value">
-  <p *ngSwitchCase = '5'>Value is 5</p>
-  <p *ngSwitchCase = '10'>Value is 10</p>
-  <p *ngSwitchDefault>Value is default</p>
-</div> -->
