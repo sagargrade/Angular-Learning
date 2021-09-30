@@ -1,14 +1,24 @@
 <nav class="navbar navbar-default">
   <section class="navbar-header">
-    <a href="#" class="navbar-brand" (click)="onUserClick('Welcome')">
+    <a class="navbar-brand" routerLink="/">
       Angular Learning
     </a>
   </section>
   <section class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
-      <li class="presentation"><a href="#" (click)="onUserClick('Test')">TEST</a></li>
-      <li><a href="#" (click)="onUserClick('Syst')">SYST</a></li>
-      <li><a href="#" (click)="onUserClick('Prod')">PROD</a></li>
+      <li routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact:true}">
+        <a routerLink="/">Home</a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="/test">TEST</a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="/syst">SYST</a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="/prod">PROD</a>
+      </li>
     </ul>
   </section>
 </nav>

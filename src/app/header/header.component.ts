@@ -11,8 +11,4 @@ export class HeaderComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
-
-  onUserClick(value: string) {
-    this.pageSelection.emit(value);
-  }
 }

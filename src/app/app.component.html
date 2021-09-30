@@ -1,15 +1,8 @@
 <header class="container">
   <app-header (pageSelection)="onSelectedPage($event)"></app-header>
 </header>
-<article class="container" [ngSwitch] = "envName">
-  <app-home *ngIf="envName === 'Welcome'"></app-home>
-  <app-test
-    *ngIf="envName === 'Test'"
-    [nameEnv]="envName"
-    (myAnswer)="onAnsReceived($event)">
-  </app-test>
-  <app-syst *ngIf="envName === 'Syst'"></app-syst>
-  <app-prod *ngIf="envName === 'Prod'"></app-prod>
+<article class="container">
+  <router-outlet></router-outlet>
 </article>
 
 <!-- <div [ngSwitch] = "value">

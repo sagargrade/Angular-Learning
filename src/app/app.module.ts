@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { TestComponent } from './test/test.component';
@@ -12,17 +13,28 @@ import { UserdataService } from './shared/userdata.service';
 import { LoggingService } from './shared/logging.service';
 import { HomeComponent } from './home/home.component';
 
+const appRoutes:Routes = [
+  {path:'', component:HomeComponent},     //localhost:4200
+  {path:'test',component:TestComponent},  //localhost:4200/test
+  {path:'syst',component:SystComponent},  //locathost:4200/syst
+  {path:'prod',component:ProdComponent}   //localhost:4200/prod
+]
+
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
+    HomeComponent,
     TestComponent,
     SystComponent,
     ProdComponent,
-    HeaderComponent,
-    BasicHighlightDirective,
-    HomeComponent
+    BasicHighlightDirective
   ],
-  imports: [BrowserModule, FormsModule],
+  imports: [
+    BrowserModule, 
+    FormsModule,
+    RouterModule.forRoot(appRoutes)
+  ],
   providers: [UserdataService,LoggingService],
   bootstrap: [AppComponent],
 })
