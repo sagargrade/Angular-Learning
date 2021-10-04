@@ -13,6 +13,7 @@ import { UserdataService } from './shared/userdata.service';
 import { LoggingService } from './shared/logging.service';
 import { HomeComponent } from './home/home.component';
 import { TestUserComponent } from './test/test-user/test-user.component';
+import { TestUserEditComponent } from './test/test-user/test-user-edit/test-user-edit.component';
 
 const appRoutes:Routes = [
   {path:'', component:HomeComponent},     //localhost:4200
@@ -31,7 +32,8 @@ const appRoutes:Routes = [
     SystComponent,
     ProdComponent,
     BasicHighlightDirective,
-    TestUserComponent
+    TestUserComponent,
+    TestUserEditComponent
   ],
   imports: [
     BrowserModule, 
