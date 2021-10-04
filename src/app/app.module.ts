@@ -12,10 +12,12 @@ import { BasicHighlightDirective } from './basic-highlight/basic-highlight.direc
 import { UserdataService } from './shared/userdata.service';
 import { LoggingService } from './shared/logging.service';
 import { HomeComponent } from './home/home.component';
+import { TestUserComponent } from './test/test-user/test-user.component';
 
 const appRoutes:Routes = [
   {path:'', component:HomeComponent},     //localhost:4200
   {path:'test',component:TestComponent},  //localhost:4200/test
+  {path:'test/:name',component:TestUserComponent},  //localhost:4200/test/ramesh
   {path:'syst',component:SystComponent},  //locathost:4200/syst
   {path:'prod',component:ProdComponent}   //localhost:4200/prod
 ]
@@ -28,7 +30,8 @@ const appRoutes:Routes = [
     TestComponent,
     SystComponent,
     ProdComponent,
-    BasicHighlightDirective
+    BasicHighlightDirective,
+    TestUserComponent
   ],
   imports: [
     BrowserModule, 

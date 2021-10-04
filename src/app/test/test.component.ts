@@ -7,6 +7,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../shared/user.model';
 import { UserdataService } from '../shared/userdata.service';
 
@@ -26,7 +27,9 @@ export class TestComponent implements OnInit {
 
   users: User[] = [];
 
-  constructor(private userDataService: UserdataService) {}
+  constructor(private userDataService: UserdataService,
+              private router: Router,
+    ) {}
 
   ngOnInit(): void {
     this.users = this.userDataService.getUserDetails();
@@ -41,4 +44,9 @@ export class TestComponent implements OnInit {
     const newUser = new User(this.username, this.useremail, this.userrole);
     this.userDataService.addUser(newUser);
   }
+
+  onSelectedUser(user:User){
+    this.router.navigate(["test",user.userName])  //localhost:4200/test/Ram
+  }
 }
+
