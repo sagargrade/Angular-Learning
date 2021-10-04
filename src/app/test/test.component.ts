@@ -21,6 +21,7 @@ export class TestComponent implements OnInit {
   @Output() myAnswer = new EventEmitter<string>();
   @ViewChild('userName') userNameDef: any;
 
+  userId: number;
   username: string = '';
   useremail: string = '';
   userrole: string = '';
@@ -41,7 +42,10 @@ export class TestComponent implements OnInit {
   }
 
   onClickButton() {
-    const newUser = new User(this.username, this.useremail, this.userrole);
+    const lastUser = this.users[this.users.length - 1];
+    this.userId = lastUser.userId + 1;
+    console.log(this.userId);
+    const newUser = new User(this.userId, this.username, this.useremail, this.userrole);
     this.userDataService.addUser(newUser);
   }
 
