@@ -18,18 +18,8 @@
        [(ngModel)] = "userrole" name="userrole"/>
     </div>
     <hr />
-    <button class="btn btn-default" (click)="onClickButton()">Register</button>
+    <button class="btn btn-success" (click)="onClickButton()">Register</button>
   </form>
   <hr />
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-3" *ngFor="let user of users">
-        <a class="thumbnail text-center" 
-          (click)="onSelectedUser(user)"
-          role="button">
-          {{ user.userName }}
-        </a>
-      </div>
-    </div>
-  </div>
+  <button class="btn btn-primary" (click)="onShowTestUsers()">Show Registered Users</button>
 </div>

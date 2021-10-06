@@ -1,13 +1,12 @@
 import {
   Component,
-  ElementRef,
   EventEmitter,
   Input,
   OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { User } from '../shared/user.model';
 import { UserdataService } from '../shared/userdata.service';
 
@@ -17,7 +16,7 @@ import { UserdataService } from '../shared/userdata.service';
   styleUrls: ['./test.component.css'],
 })
 export class TestComponent implements OnInit {
-  @Input() nameEnv: string = '';
+  @Input() nameEnv: string = 'Test';
   @Output() myAnswer = new EventEmitter<string>();
   @ViewChild('userName') userNameDef: any;
 
@@ -49,8 +48,8 @@ export class TestComponent implements OnInit {
     this.userDataService.addUser(newUser);
   }
 
-  onSelectedUser(user:User){
-    this.router.navigate(["test",user.userName])  //localhost:4200/test/Ram
+  onShowTestUsers(){
+    this.router.navigate(["test","users"])
   }
 }
 
