@@ -4,40 +4,14 @@ import { UserdataService } from './shared/userdata.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  envName:string = 'Welcome';
+  constructor() {}
 
-  constructor(){}
+  ngOnInit() {}
 
-  ngOnInit(){ }
-
-  onAnsReceived(event:string){
+  onAnsReceived(event: string) {
     console.log(event);
   }
-
-  onSelectedPage(event:string){
-    this.envName = event;
-  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

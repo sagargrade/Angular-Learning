@@ -1,5 +1,5 @@
-export class LoggingService{
-    logInConsole(status:string){
-        console.log(status);
-    }
+export class LoggingService {
+  logInConsole(status: string) {
+    console.log(status);
+  }
 }

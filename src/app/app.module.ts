@@ -12,23 +12,31 @@ import { BasicHighlightDirective } from './basic-highlight/basic-highlight.direc
 import { UserdataService } from './shared/userdata.service';
 import { LoggingService } from './shared/logging.service';
 import { HomeComponent } from './home/home.component';
-import { TestUserComponent } from './test/test-user/test-user.component';
-import { TestUserEditComponent } from './test/test-user/test-user-edit/test-user-edit.component';
+import { TestUserComponent } from './test/test-user-list/test-user/test-user.component';
+import { TestUserEditComponent } from './test/test-user-list/test-user/test-user-edit/test-user-edit.component';
 import { TestUserListComponent } from './test/test-user-list/test-user-list.component';
 import { TestUserRegistrationComponent } from './test/test-user-registration/test-user-registration.component';
 
-const appRoutes:Routes = [
-  {path:'', component:HomeComponent},     //localhost:4200
-  {path:'test',component:TestComponent}, 
-  {path:'test/users',component:TestUserListComponent,
-   children:[
-    {path:':name',component:TestUserComponent},  //localhost:4200/test/users/ramesh
-    {path:':name/edit',component:TestUserEditComponent},
-   ]
-  },  
-  {path:'syst',component:SystComponent},  //locathost:4200/syst
-  {path:'prod',component:ProdComponent}   //localhost:4200/prod
-]
+const appRoutes: Routes = [
+  { path: '', component: HomeComponent }, //localhost:4200
+  {
+    path: 'test',
+    component: TestComponent,
+    children: [
+      { path: 'register', component: TestUserRegistrationComponent },
+      {
+        path: 'users',
+        component: TestUserListComponent,
+        children: [
+          { path: ':name', component: TestUserComponent },
+          { path: ':name/edit', component: TestUserEditComponent },
+        ],
+      },
+    ],
+  },
+  { path: 'syst', component: SystComponent }, //locathost:4200/syst
+  { path: 'prod', component: ProdComponent }, //localhost:4200/prod
+];
 
 @NgModule({
   declarations: [
@@ -42,14 +50,10 @@ const appRoutes:Routes = [
     TestUserComponent,
     TestUserEditComponent,
     TestUserListComponent,
-    TestUserRegistrationComponent
+    TestUserRegistrationComponent,
   ],
-  imports: [
-    BrowserModule, 
-    FormsModule,
-    RouterModule.forRoot(appRoutes)
-  ],
-  providers: [UserdataService,LoggingService],
+  imports: [BrowserModule, FormsModule, RouterModule.forRoot(appRoutes)],
+  providers: [UserdataService, LoggingService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

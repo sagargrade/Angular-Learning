@@ -1,14 +1,5 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '../shared/user.model';
-import { UserdataService } from '../shared/userdata.service';
 
 @Component({
   selector: 'app-test',
@@ -16,40 +7,17 @@ import { UserdataService } from '../shared/userdata.service';
   styleUrls: ['./test.component.css'],
 })
 export class TestComponent implements OnInit {
-  @Input() nameEnv: string = 'Test';
-  @Output() myAnswer = new EventEmitter<string>();
-  @ViewChild('userName') userNameDef: any;
+  constructor(private router: Router) {}
 
-  userId: number;
-  username: string = '';
-  useremail: string = '';
-  userrole: string = '';
+  ngOnInit() {}
 
-  users: User[] = [];
-
-  constructor(private userDataService: UserdataService,
-              private router: Router,
-    ) {}
-
-  ngOnInit(): void {
-    this.users = this.userDataService.getUserDetails();
-    this.userDataService.userDetailChange.subscribe(
-      (userlist: User[]) => {
-        this.users = userlist;
-      }
-    );
+  /* Navigate to registration page */
+  onNewRegistration() {
+    this.router.navigate(['test', 'register']);
   }
 
-  onClickButton() {
-    const lastUser = this.users[this.users.length - 1];
-    this.userId = lastUser.userId + 1;
-    console.log(this.userId);
-    const newUser = new User(this.userId, this.username, this.useremail, this.userrole);
-    this.userDataService.addUser(newUser);
-  }
-
-  onShowTestUsers(){
-    this.router.navigate(["test","users"])
+  /* Navigate to list of user page */
+  onShowRegisteredUser() {
+    this.router.navigate(['test', 'users']);
   }
 }
-
