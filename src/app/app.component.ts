@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { UserdataService } from './shared/userdata.service';
 
 @Component({
   selector: 'app-root',

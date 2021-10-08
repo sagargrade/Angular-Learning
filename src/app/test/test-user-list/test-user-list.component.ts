@@ -22,7 +22,7 @@ export class TestUserListComponent implements OnInit {
 
   onSelectedUser(user: User) {
     this.showUserDetail = true;
-    this.router.navigate(['test', 'users', user.userName], {
+    this.router.navigate(['test', 'users', user.userId], {
       queryParams: { allowEdit: user.userName === 'Ram' ? '1' : '0' },
       fragment: 'loaduser',
     });

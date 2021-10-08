@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { TestComponent } from './test/test.component';
@@ -16,27 +15,10 @@ import { TestUserComponent } from './test/test-user-list/test-user/test-user.com
 import { TestUserEditComponent } from './test/test-user-list/test-user/test-user-edit/test-user-edit.component';
 import { TestUserListComponent } from './test/test-user-list/test-user-list.component';
 import { TestUserRegistrationComponent } from './test/test-user-registration/test-user-registration.component';
-
-const appRoutes: Routes = [
-  { path: '', component: HomeComponent }, //localhost:4200
-  {
-    path: 'test',
-    component: TestComponent,
-    children: [
-      { path: 'register', component: TestUserRegistrationComponent },
-      {
-        path: 'users',
-        component: TestUserListComponent,
-        children: [
-          { path: ':name', component: TestUserComponent },
-          { path: ':name/edit', component: TestUserEditComponent },
-        ],
-      },
-    ],
-  },
-  { path: 'syst', component: SystComponent }, //locathost:4200/syst
-  { path: 'prod', component: ProdComponent }, //localhost:4200/prod
-];
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AuthService } from './auth.service';
+import { AuthGaurdService } from './auth-gaurd.service';
 
 @NgModule({
   declarations: [
@@ -51,9 +33,10 @@ const appRoutes: Routes = [
     TestUserEditComponent,
     TestUserListComponent,
     TestUserRegistrationComponent,
+    PageNotFoundComponent,
   ],
-  imports: [BrowserModule, FormsModule, RouterModule.forRoot(appRoutes)],
-  providers: [UserdataService, LoggingService],
+  imports: [BrowserModule, FormsModule, AppRoutingModule],
+  providers: [UserdataService, LoggingService, AuthService, AuthGaurdService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

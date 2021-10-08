@@ -22,6 +22,13 @@ export class UserdataService {
     return this.usersDetails.slice();
   }
 
+  getUserDetail(id: number) {
+    const singleUser = <User>this.usersDetails.find((user: User) => {
+      return user.userId === id;
+    });
+    return singleUser;
+  }
+
   addUser(user: User) {
     this.usersDetails.push(user);
     this.userDetailChange.emit(this.usersDetails.slice());

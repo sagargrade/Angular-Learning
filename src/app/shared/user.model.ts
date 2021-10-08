@@ -5,12 +5,12 @@ export class User {
   public userRole: string;
 
   constructor(
-    userId: number,
+    userid: number,
     username: string,
     useremail: string,
     userrole: string
   ) {
-    this.userId = userId;
+    this.userId = userid;
     this.userName = username;
     this.userEmail = useremail;
     this.userRole = userrole;

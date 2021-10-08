@@ -2,9 +2,9 @@
   <div class="panel-heading">
     <h3 class="panel-title">User : {{ singleUserDet.userName }}</h3>
   </div>
-  <div class="panel-body">User Email : UserEmail</div>
-  <div class="panel-body">User Role : UserRole</div>
+  <div class="panel-body">User Email : {{ singleUserDet.userEmail }}</div>
+  <div class="panel-body">User Role : {{ singleUserDet.userRole }}</div>
 </div>
-<button class="btn btn-primary" (click)="onEditUser()">
+<button class="btn btn-primary" (click)="onUpdateUser()">
   Update User Details
 </button>
