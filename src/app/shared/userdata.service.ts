@@ -1,24 +1,27 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { LoggingService } from './logging.service';
 import { User } from './user.model';
 
 @Injectable()
 export class UserdataService {
-  constructor(private logService: LoggingService) {}
+  constructor(private logService: LoggingService, private http: HttpClient) {}
 
-  userDetailChange = new EventEmitter<User[]>();
+  userDetailChange = new Subject<User[]>();
 
-  private usersDetails: User[] = [
-    new User(1, 'Ram', 'test@test.com', 'Angular Developer'),
-    new User(2, 'Ramesh', 'tes1@test.com', 'Team Manager'),
-    new User(3, 'Suresh', 'tes2@test.com', 'Lead Developer'),
-    new User(4, 'Raju', 'tes3@test.com', 'Test Manager'),
-    new User(5, 'Kishore', 'tes4@test.com', 'DevOps Developer'),
-    new User(6, 'Rahul', 'tes5@test.com', 'Java Developer'),
-    new User(7, 'Narendra', 'tes6@test.com', 'Mainframe Developer'),
-  ];
+  private usersDetails: User[] = [];
 
   getUserDetails() {
+    this.http
+      .get<User[]>(
+        'https://angular-learning-251f1-default-rtdb.europe-west1.firebasedatabase.app/users.json'
+      )
+      .subscribe((users) => {
+        this.usersDetails = users;
+        console.log(this.usersDetails);
+        this.userDetailChange.next(this.usersDetails.slice());
+      });
     return this.usersDetails.slice();
   }
 
@@ -31,7 +34,53 @@ export class UserdataService {
 
   addUser(user: User) {
     this.usersDetails.push(user);
-    this.userDetailChange.emit(this.usersDetails.slice());
+    this.http
+      .put(
+        'https://angular-learning-251f1-default-rtdb.europe-west1.firebasedatabase.app/users.json',
+        this.usersDetails
+      )
+      .subscribe((resposeData) => {
+        console.log(resposeData);
+      });
+    this.userDetailChange.next(this.usersDetails.slice());
     this.logService.logInConsole('User is added :' + user.userName);
+  }
+
+  updateUser(updateuser: User) {
+    for (var user of this.usersDetails) {
+      if (user.userId === updateuser.userId) {
+        user.userName = updateuser.userName;
+        user.userEmail = updateuser.userEmail;
+        user.userRole = updateuser.userRole;
+        this.http
+          .put(
+            'https://angular-learning-251f1-default-rtdb.europe-west1.firebasedatabase.app/users.json',
+            this.usersDetails
+          )
+          .subscribe((resposeData) => {
+            console.log(resposeData);
+          });
+        this.userDetailChange.next(this.usersDetails.slice());
+        break;
+      }
+    }
+  }
+
+  deleteUser(deleteUserId: number) {
+    for (let index in this.usersDetails) {
+      if (this.usersDetails[index].userId == deleteUserId) {
+        this.usersDetails.splice(+index, 1);
+        this.http
+          .put(
+            'https://angular-learning-251f1-default-rtdb.europe-west1.firebasedatabase.app/users.json',
+            this.usersDetails
+          )
+          .subscribe((resposeData) => {
+            console.log(resposeData);
+          });
+        this.userDetailChange.next(this.usersDetails.slice());
+        break;
+      }
+    }
   }
 }

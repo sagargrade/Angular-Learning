@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/shared/user.model';
@@ -10,8 +10,13 @@ import { UserdataService } from 'src/app/shared/userdata.service';
   styleUrls: ['./test-user.component.css'],
 })
 export class TestUserComponent implements OnInit, OnDestroy {
-  singleUserDet: User = new User(0, '', '', '');
+  username = '';
+  useremail = '';
+  userrole = '';
+  userid: number;
+  singleUserDet: User;
   paramsSubscription: Subscription;
+  subscription: Subscription;
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -20,18 +25,30 @@ export class TestUserComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.singleUserDet = this.userDataSrv.getUserDetail(
-      +this.activeRoute.snapshot.params['id']
+    this.subscription = this.userDataSrv.userDetailChange.subscribe(
+      (usersList) => {
+        this.singleUserDet = <User>usersList.find((user: User) => {
+          this.userid = +this.activeRoute.snapshot.params['id'];
+          return user.userId === +this.activeRoute.snapshot.params['id'];
+        });
+        if (this.singleUserDet) {
+          this.username = this.singleUserDet.userName;
+          this.useremail = this.singleUserDet.userEmail;
+          this.userrole = this.singleUserDet.userRole;
+        }
+      }
     );
     this.paramsSubscription = this.activeRoute.params.subscribe(
       (params: Params) => {
+        this.userid = +params['id'];
         this.singleUserDet = this.userDataSrv.getUserDetail(+params['id']);
+        if (this.singleUserDet) {
+          this.username = this.singleUserDet.userName;
+          this.useremail = this.singleUserDet.userEmail;
+          this.userrole = this.singleUserDet.userRole;
+        }
       }
     );
-    this.activeRoute.queryParams.subscribe((queryparameters: Params) => {
-      console.log(queryparameters);
-    });
-    this.activeRoute.fragment.subscribe();
   }
 
   onUpdateUser() {
@@ -41,8 +58,13 @@ export class TestUserComponent implements OnInit, OnDestroy {
     });
   }
 
+  onDeleteUser() {
+    this.userDataSrv.deleteUser(this.userid);
+    this.router.navigate(['../'], { relativeTo: this.activeRoute });
+  }
+
   ngOnDestroy() {
-    console.log('Test user Component Destroyed');
+    this.subscription.unsubscribe();
     this.paramsSubscription.unsubscribe();
   }
 }

@@ -1,4 +1,7 @@
-.article-register{
-    padding-left: 15px;
-    padding-right: 15px;
+.article-register {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
 }

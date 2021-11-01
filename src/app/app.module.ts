@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { TestComponent } from './test/test.component';
@@ -19,6 +20,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './auth.service';
 import { AuthGaurdService } from './auth-gaurd.service';
+import { CanDeactivateGuardService } from './test/test-user-registration/can-deactivate-guard.service';
+import { UserResolverService } from './user-resolver.service';
+import { ShortenPipe } from './shared/shorten.pipe';
+import { FilterPipe } from './shared/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -34,9 +39,24 @@ import { AuthGaurdService } from './auth-gaurd.service';
     TestUserListComponent,
     TestUserRegistrationComponent,
     PageNotFoundComponent,
+    ShortenPipe,
+    FilterPipe,
   ],
-  imports: [BrowserModule, FormsModule, AppRoutingModule],
-  providers: [UserdataService, LoggingService, AuthService, AuthGaurdService],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+  ],
+  providers: [
+    UserdataService,
+    LoggingService,
+    AuthService,
+    AuthGaurdService,
+    CanDeactivateGuardService,
+    UserResolverService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

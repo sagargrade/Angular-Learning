@@ -1,28 +1,95 @@
 <div class="jumbotron">
   <h2>Welcome to Syst Environment</h2>
   <h4>Only Admin can register here</h4>
-  <form>
-    <div class="form-group">
-      <label for="name">Username :</label>
-      <input type="text" id="name" class="form-control" />
+  <h5>Status of Application is : {{ appStatus | async }}</h5>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div [formGroupName]="'userdata'">
+      <div class="form-group">
+        <label for="name">Username :</label>
+        <input
+          type="text"
+          id="name"
+          class="form-control"
+          [formControlName]="'username'"
+        />
+      </div>
+      <!-- <span *ngIf="loginForm.get('userdata.username').errors['nameForbidden']">
+        This username is invalid</span
+      > -->
+      <span
+        class="help-block"
+        *ngIf="
+          !loginForm.get('userdata.username').valid &&
+          loginForm.get('userdata.username').touched
+        "
+        >Please enter the valid username.!!!</span
+      >
+      <div class="form-group">
+        <label for="email">Email :</label>
+        <input
+          type="text"
+          id="email"
+          class="form-control"
+          [formControlName]="'useremail'"
+        />
+      </div>
+      <span
+        class="help-block"
+        *ngIf="
+          !loginForm.get('userdata.useremail').valid &&
+          loginForm.get('userdata.useremail').touched
+        "
+        >Please enter the valid useremail.!!!</span
+      >
     </div>
+    <span
+      class="help-block"
+      *ngIf="
+        !loginForm.get('userdata').valid && loginForm.get('userdata').touched
+      "
+      >Please enter valid user details</span
+    >
     <div class="form-group">
-      <label for="email">Email :</label>
-      <input type="text" id="email" class="form-control" />
-    </div>
-    <div class="formgroup">
       <label for="role">Role :</label>
-      <input type="text" id="role" class="form-control" />
+      <input
+        type="text"
+        id="role"
+        class="form-control"
+        [formControlName]="'userrole'"
+      />
+    </div>
+    <div [formArrayName]="'skills'">
+      <h4>Skills</h4>
+      <button class="btn btn-default" type="button" (click)="onAddSkill()">
+        Add Skills
+      </button>
+      <div class="form-group" *ngFor="let skill of getControl(); let i = index">
+        <input type="text" class="form-control" [formControlName]="i" />
+      </div>
     </div>
     <hr />
-    <button class="btn btn-default">Register</button>
+    <button class="btn btn-default" [disabled]="!loginForm.valid">
+      Register
+    </button>
   </form>
+  <hr />
+  <input type="text" [(ngModel)]="filteredName" />
   <hr />
   <div class="container">
     <div class="row">
-      <div class="col-xs-3" *ngFor="let user of users">
-        <a href="#" class="thumbnail">{{ user.userName }}</a>
+      <div
+        class="col-xs-3"
+        *ngFor="let user of users | filter: filteredName:'userName'"
+      >
+        <a href="#" class="thumbnail">{{
+          user.userName | uppercase | shorten: 10
+        }}</a>
       </div>
     </div>
   </div>
 </div>
+
+<h3>{{ todayDate | date: "longDate" | uppercase }}</h3>
+
+<!-- ng g c <<component name>> -->
+<!-- ng g p <<pipe name>> -->

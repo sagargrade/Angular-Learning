@@ -1,19 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { User } from 'src/app/shared/user.model';
 import { UserdataService } from 'src/app/shared/userdata.service';
+import { CanComponentDeactivate } from './can-deactivate-guard.service';
 
 @Component({
   selector: 'app-test-user-registration',
   templateUrl: './test-user-registration.component.html',
   styleUrls: ['./test-user-registration.component.css'],
 })
-export class TestUserRegistrationComponent implements OnInit {
-  userId: number;
-  username: string = '';
-  useremail: string = '';
-  userrole: string = '';
-  registered: boolean = false;
+export class TestUserRegistrationComponent
+  implements OnInit, CanComponentDeactivate
+{
+  @ViewChild('f') regsForm: NgForm; // Form Object Based on HTML Template
 
+  registered: boolean = false;
+  defaultRole: string = 'Developer';
   users: User[] = [];
 
   constructor(private userDataService: UserdataService) {}
@@ -27,14 +30,26 @@ export class TestUserRegistrationComponent implements OnInit {
 
   onClickButton() {
     const lastUser = this.users[this.users.length - 1];
-    this.userId = lastUser.userId + 1;
+    const userId: number = lastUser.userId + 1;
     const newUser = new User(
-      this.userId,
-      this.username,
-      this.useremail,
-      this.userrole
+      userId,
+      this.regsForm.value.username,
+      this.regsForm.value.useremail,
+      this.regsForm.value.userrole
     );
     this.userDataService.addUser(newUser);
     this.registered = true;
+    this.regsForm.reset();
+  }
+
+  method(): Observable<boolean> | Promise<boolean> | boolean {
+    if (
+      this.regsForm.value.username !== '' ||
+      this.regsForm.value.useremail !== ''
+    ) {
+      return confirm('Do you want to leave changes?');
+    } else {
+      return true;
+    }
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/shared/user.model';
 import { UserdataService } from 'src/app/shared/userdata.service';
 
@@ -18,12 +18,15 @@ export class TestUserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.userList = this.userDataSrv.getUserDetails();
+    this.userDataSrv.userDetailChange.subscribe((users) => {
+      this.userList = users;
+    });
   }
 
   onSelectedUser(user: User) {
     this.showUserDetail = true;
     this.router.navigate(['test', 'users', user.userId], {
-      queryParams: { allowEdit: user.userName === 'Ram' ? '1' : '0' },
+      queryParams: { allowEdit: '1' },
       fragment: 'loaduser',
     });
   }

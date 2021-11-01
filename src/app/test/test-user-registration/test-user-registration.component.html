@@ -1,15 +1,20 @@
 <article class="article-register">
   <h4>Any user can register here</h4>
-  <form>
+  <form (ngSubmit)="onClickButton()" #f="ngForm">
     <div class="form-group">
       <label for="name">Username :</label>
       <input
         type="text"
         id="name"
         class="form-control"
-        [(ngModel)]="username"
+        ngModel
         name="username"
+        required
+        #userEr="ngModel"
       />
+      <span class="help-block" *ngIf="!userEr.valid && userEr.touched"
+        >Please enter the valid username.!!!</span
+      >
     </div>
     <div class="form-group">
       <label for="email">Email :</label>
@@ -17,22 +22,28 @@
         type="email"
         id="email"
         class="form-control"
-        [(ngModel)]="useremail"
+        ngModel
         name="useremail"
+        required
+        email
+        #emailEr="ngModel"
       />
+      <span class="help-block" *ngIf="!emailEr.valid && emailEr.touched"
+        >Please enter the valid email address.!!!</span
+      >
     </div>
-    <div class="formgroup">
+    <div class="form-group">
       <label for="role">Role :</label>
       <input
         type="text"
         id="role"
         class="form-control"
-        [(ngModel)]="userrole"
+        [ngModel]="defaultRole"
         name="userrole"
       />
     </div>
     <hr />
-    <button class="btn btn-success" (click)="onClickButton()">Register</button>
+    <button class="btn btn-success" [disabled]="!f.valid">Register</button>
   </form>
   <hr />
   <p *ngIf="registered" class="bg-info">User registered successfully!!!</p>
