@@ -36,23 +36,17 @@ export class AuthComponent implements OnInit, OnDestroy {
   onSubmit(authForm: NgForm) {
     const email = authForm.value.useremail;
     const password = authForm.value.userpassword;
-    console.log(authForm);
     if (this.isLoginMode) {
       this.userAuthService.signIn(email, password).subscribe(
-        (responseData) => {
-          console.log(responseData);
-        },
+        (responseData) => {},
         (errors) => {
           this.error = errors;
         }
       );
     } else {
       this.userAuthService.signUp(email, password).subscribe(
-        (responseData) => {
-          console.log(responseData);
-        },
+        (responseData) => {},
         (errors) => {
-          console.log(errors);
           this.error = errors;
         }
       );

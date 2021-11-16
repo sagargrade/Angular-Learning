@@ -36,10 +36,10 @@ export class UserAuthService {
         },
         {
           headers: new HttpHeaders({
-            // accept: '*/*',
-            //'accept-language': '*',
-            //'content-language': '*',
-            //'content-type': 'application/json',
+            accept: '*/*',
+            'accept-language': '*',
+            'content-language': '*',
+            'content-type': 'application/json',
           }),
         }
       )
@@ -65,6 +65,14 @@ export class UserAuthService {
           email: useremail,
           password: userpassword,
           returnSecureToken: true,
+        },
+        {
+          headers: new HttpHeaders({
+            accept: '*/*',
+            'accept-language': '*',
+            'content-language': '*',
+            'content-type': 'application/json',
+          }),
         }
       )
       .pipe(

@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { LoggingService } from './logging.service';
 import { User } from './user.model';
 
@@ -30,14 +29,12 @@ export class UserdataService {
       )
       .subscribe(
         (users) => {
-          console.log(users);
           if (users) {
             this.usersDetails = users;
             this.userDetailChange.next(this.usersDetails.slice());
           }
         },
         (errors) => {
-          console.log(errors.error.error);
           this.errors.next(errors.error.error);
         }
       );
@@ -58,9 +55,7 @@ export class UserdataService {
         'https://angular-learning-6b70e-default-rtdb.firebaseio.com/users.json',
         this.usersDetails
       )
-      .subscribe((resposeData) => {
-        console.log(resposeData);
-      });
+      .subscribe((resposeData) => {});
     this.userDetailChange.next(this.usersDetails.slice());
     this.logService.logInConsole('User is added :' + user.userName);
   }
@@ -80,9 +75,7 @@ export class UserdataService {
               responseType: 'text',
             }
           )
-          .subscribe((resposeData) => {
-            console.log(resposeData);
-          });
+          .subscribe((resposeData) => {});
         this.userDetailChange.next(this.usersDetails.slice());
         break;
       }
@@ -98,9 +91,7 @@ export class UserdataService {
             'https://angular-learning-6b70e-default-rtdb.firebaseio.com/users.json',
             this.usersDetails
           )
-          .subscribe((resposeData) => {
-            console.log(resposeData);
-          });
+          .subscribe((resposeData) => {});
         this.userDetailChange.next(this.usersDetails.slice());
         break;
       }

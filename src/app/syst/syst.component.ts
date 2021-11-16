@@ -13,7 +13,6 @@ export class SystComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   users: User[] = [];
   forbiddenUserNames = ['prod', 'syst', 'test'];
-  todayDate = new Date(22, 10, 2021);
   filteredName: string = '';
   subscribe: Subscription;
 
@@ -47,20 +46,6 @@ export class SystComponent implements OnInit, OnDestroy {
       skills: new FormArray([]),
     });
 
-    // this.loginForm.valueChanges.subscribe((value) => {
-    //   console.log(value);
-    // });
-    // this.loginForm.statusChanges.subscribe((status) => {
-    //   console.log(status);
-    // });
-    // this.loginForm.setValue({
-    //   userdata: {
-    //     username: 'hello',
-    //     useremail: 'hello@hello.com',
-    //   },
-    //   userrole: 'Manager',
-    //   skills: [],
-    // });
     this.loginForm.patchValue({
       userrole: 'Manager',
     });
@@ -71,7 +56,6 @@ export class SystComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    console.log(this.loginForm);
     const newUser: User = new User(
       10,
       this.loginForm.value.userdata.username,

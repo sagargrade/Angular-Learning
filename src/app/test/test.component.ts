@@ -11,12 +11,10 @@ export class TestComponent implements OnInit {
 
   ngOnInit() {}
 
-  /* Navigate to registration page */
   onNewRegistration() {
     this.router.navigate(['auth', 'test', 'register']);
   }
 
-  /* Navigate to list of user page */
   onShowRegisteredUser() {
     this.router.navigate(['auth', 'test', 'users']);
   }
