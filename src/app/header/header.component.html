@@ -2,19 +2,24 @@
   <section class="navbar-header">
     <a class="navbar-brand" routerLink="/"> Angular Learning </a>
   </section>
-  <section class="navbar-collapse collapse">
+  <section class="navbar-collapse collapse" *ngIf="displayMenu">
     <ul class="nav navbar-nav">
       <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <a routerLink="/">Home</a>
+        <a routerLink="/auth/">Home</a>
       </li>
       <li routerLinkActive="active">
-        <a routerLink="/test">TEST</a>
+        <a routerLink="/auth/test">TEST</a>
       </li>
       <li routerLinkActive="active">
-        <a routerLink="/syst">SYST</a>
+        <a routerLink="/auth/syst">SYST</a>
       </li>
       <li routerLinkActive="active">
-        <a routerLink="/prod">PROD</a>
+        <a routerLink="/auth/prod">PROD</a>
+      </li>
+      <li>
+        <button class="btn btn-default navbar-btn" (click)="onLogout()">
+          Logout
+        </button>
       </li>
     </ul>
   </section>

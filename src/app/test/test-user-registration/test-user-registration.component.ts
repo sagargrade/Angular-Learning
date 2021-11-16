@@ -30,7 +30,12 @@ export class TestUserRegistrationComponent
 
   onClickButton() {
     const lastUser = this.users[this.users.length - 1];
-    const userId: number = lastUser.userId + 1;
+    let userId: number;
+    if (lastUser) {
+      userId = lastUser.userId + 1;
+    } else {
+      userId = 1;
+    }
     const newUser = new User(
       userId,
       this.regsForm.value.username,

@@ -56,7 +56,10 @@ export class TestUserEditComponent implements OnInit, OnDestroy {
       this.userrole
     );
     this.userDataService.updateUser(updateuser);
-    this.router.navigate(['../'], { relativeTo: this.actRoute });
+    this.router.navigate(['../'], {
+      relativeTo: this.actRoute,
+      queryParamsHandling: 'preserve',
+    });
   }
 
   ngOnDestroy() {

@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { LoggingService } from './logging.service';
 import { User } from './user.model';
 
@@ -9,19 +10,37 @@ export class UserdataService {
   constructor(private logService: LoggingService, private http: HttpClient) {}
 
   userDetailChange = new Subject<User[]>();
+  errors = new Subject<string>();
 
   private usersDetails: User[] = [];
 
   getUserDetails() {
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('print', 'pretty');
+    searchParams = searchParams.append('custom', 'key');
     this.http
       .get<User[]>(
-        'https://angular-learning-251f1-default-rtdb.europe-west1.firebasedatabase.app/users.json'
+        'https://angular-learning-6b70e-default-rtdb.firebaseio.com/users.json',
+        {
+          headers: new HttpHeaders({
+            'custom-header': 'hello',
+          }),
+          params: searchParams,
+        }
       )
-      .subscribe((users) => {
-        this.usersDetails = users;
-        console.log(this.usersDetails);
-        this.userDetailChange.next(this.usersDetails.slice());
-      });
+      .subscribe(
+        (users) => {
+          console.log(users);
+          if (users) {
+            this.usersDetails = users;
+            this.userDetailChange.next(this.usersDetails.slice());
+          }
+        },
+        (errors) => {
+          console.log(errors.error.error);
+          this.errors.next(errors.error.error);
+        }
+      );
     return this.usersDetails.slice();
   }
 
@@ -36,7 +55,7 @@ export class UserdataService {
     this.usersDetails.push(user);
     this.http
       .put(
-        'https://angular-learning-251f1-default-rtdb.europe-west1.firebasedatabase.app/users.json',
+        'https://angular-learning-6b70e-default-rtdb.firebaseio.com/users.json',
         this.usersDetails
       )
       .subscribe((resposeData) => {
@@ -54,8 +73,12 @@ export class UserdataService {
         user.userRole = updateuser.userRole;
         this.http
           .put(
-            'https://angular-learning-251f1-default-rtdb.europe-west1.firebasedatabase.app/users.json',
-            this.usersDetails
+            'https://angular-learning-6b70e-default-rtdb.firebaseio.com/users.json',
+            this.usersDetails,
+            {
+              observe: 'body',
+              responseType: 'text',
+            }
           )
           .subscribe((resposeData) => {
             console.log(resposeData);
@@ -72,7 +95,7 @@ export class UserdataService {
         this.usersDetails.splice(+index, 1);
         this.http
           .put(
-            'https://angular-learning-251f1-default-rtdb.europe-west1.firebasedatabase.app/users.json',
+            'https://angular-learning-6b70e-default-rtdb.firebaseio.com/users.json',
             this.usersDetails
           )
           .subscribe((resposeData) => {

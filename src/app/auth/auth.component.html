@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-xs-12 col-md-6 col-xs-offset-3">
+    <div class="alert alert-danger" *ngIf="error">
+      {{ error }}
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="!isAuthenticated">
+  <div class="col-xs-12 col-md-6 col-xs-offset-3">
+    <form #authform="ngForm" (ngSubmit)="onSubmit(authform)">
+      <div class="form-group">
+        <label for="email">E-Mail</label>
+        <input
+          type="email"
+          id="email"
+          class="form-control"
+          ngModel
+          name="useremail"
+          required
+          email
+        />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          ngModel
+          name="userpassword"
+          required
+          minlength="6"
+        />
+      </div>
+      <button
+        class="btn btn-primary"
+        type="submit"
+        [disabled]="!authform.valid"
+      >
+        {{ isLoginMode ? "Login" : "SignUp" }}
+      </button>
+      |
+      <button class="btn btn-primary" type="button" (click)="onSwitch()">
+        Switch to {{ isLoginMode ? "Signup" : "Login" }}
+      </button>
+    </form>
+  </div>
+</div>
+<div *ngIf="isAuthenticated">
+  <router-outlet></router-outlet>
+</div>

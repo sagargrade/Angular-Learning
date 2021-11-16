@@ -13,6 +13,7 @@ export class TestUserListComponent implements OnInit {
   showUserDetail = false;
 
   userDetail: User;
+  error = '';
 
   constructor(private userDataSrv: UserdataService, private router: Router) {}
 
@@ -21,11 +22,14 @@ export class TestUserListComponent implements OnInit {
     this.userDataSrv.userDetailChange.subscribe((users) => {
       this.userList = users;
     });
+    this.userDataSrv.errors.subscribe((errorMessage) => {
+      this.error = errorMessage;
+    });
   }
 
   onSelectedUser(user: User) {
     this.showUserDetail = true;
-    this.router.navigate(['test', 'users', user.userId], {
+    this.router.navigate(['auth', 'test', 'users', user.userId], {
       queryParams: { allowEdit: '1' },
       fragment: 'loaduser',
     });

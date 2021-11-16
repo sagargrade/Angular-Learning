@@ -13,11 +13,11 @@ export class TestComponent implements OnInit {
 
   /* Navigate to registration page */
   onNewRegistration() {
-    this.router.navigate(['test', 'register']);
+    this.router.navigate(['auth', 'test', 'register']);
   }
 
   /* Navigate to list of user page */
   onShowRegisteredUser() {
-    this.router.navigate(['test', 'users']);
+    this.router.navigate(['auth', 'test', 'users']);
   }
 }

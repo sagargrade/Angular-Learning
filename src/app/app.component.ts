@@ -9,8 +9,4 @@ export class AppComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
-
-  onAnsReceived(event: string) {
-    console.log(event);
-  }
 }
